@@ -63,7 +63,7 @@ const App = () => {
     setResponse("");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/review", {
+      const res = await fetch("https://codefiy-backend.onrender.com/review", {
         method: POST,
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const App = () => {
   setLoading(true);
 
   try {
-    const res = await fetch("http://localhost:5000/fix", {
+    const res = await fetch("https://codefiy-backend.onrender.com/fix", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
