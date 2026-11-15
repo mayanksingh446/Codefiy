@@ -15,12 +15,15 @@ const ai = new GoogleGenAI({
 });
 
 app.post("/review", async (req, res) => {
-  try {
-    const { code, language } = req.body;
   
-    if (!code || !language) {
-        return res.status(400).json({ error: "Code and language are required" });
-}
+    console.log("Review API called");
+
+    try {
+        const { code, language } = req.body;
+
+        console.log("Code received:", code ? "Yes" : "No");
+        console.log("Language:", language);
+
 
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -39,9 +42,12 @@ Provide:
 `,
     });
     res.json({ result: response.text });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+  }  catch (error) {
+        console.error("REVIEW ERROR:", error);
+
+        res.status(500).json({
+            message: "Error reviewing code",
+            error: error.message });
   }
 });
 
