@@ -64,7 +64,7 @@ const App = () => {
     setLoading(true);
     try {
       const res = await fetch("https://codefiy-backend.onrender.com/review", {
-        method: POST,
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -75,12 +75,13 @@ const App = () => {
       });
 
       const data = await res.json();
-      setResponse(data.result);
+      if (!res.ok) {
+        throw new Error(data.error || data.message || "Review request failed");
+      }
 
-      setResponse(response.text);
-      setLoading(false);
+      setResponse(data.result || "The review returned no content.");
     } catch (error) {
-      setResponse("Error reviewing code.");
+      setResponse(`Error reviewing code: ${error.message}`);
     } finally {
       setLoading(false);
     }
